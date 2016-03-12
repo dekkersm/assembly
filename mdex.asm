@@ -15,6 +15,10 @@ indxmin dw (0)
 
 CODESEG 
 proc FindMin
+;findmin: finds the index of the minimum in the array
+;input: offset sorted, sortedlength
+;output: indxmin
+;registers:ax, cx, bx, dx, si
 	push bp
 	mov bp,sp
 	sub sp, 2
@@ -53,6 +57,10 @@ jump:
 endp FindMin
 
 proc swap
+;swap: swaps the minimum in the array with the first index
+;input: offset sorted, sortedlength
+;output: 
+;registers: ax, bx, cx, si
 	push bp
 	mov bp,sp
 	push ax
@@ -77,6 +85,10 @@ proc swap
 endp swap
 
 proc merge
+;merge: merges the two arrays 
+;input: two arrays
+;output: sorted
+;registers:ax, bx, si
 	push bx
 	push ax
 	push si
@@ -104,6 +116,12 @@ merge2loop:
 endp merge
 
 proc SortArray
+;SortArray: sort 'sorted' 
+;input: sorted
+;output: sorted 'sorted'
+;registers:dx, bx, cx
+	push dx
+	push cx
 	push bx
 	xor bx, bx
 	mov bx, offset sorted
@@ -123,10 +141,21 @@ loopSort:
 	dec dx
 	loop loopSort
 	pop bx
+	pop cx
+	pop dx
 	ret
 endp SortArray 
 
 proc filter
+;filter: filter 'sorted' from doubles 
+;input:'sorted' with doubles
+;output:'sorted' 
+;registers:bx, si, cx, dx, ax
+	push bx
+	push si
+	push cx
+	push ax
+	push dx
 	xor bx, bx
 	mov si, 1
 	mov cx, sortedlength
@@ -155,10 +184,19 @@ notequ:
 	inc bx
 	inc si
 	loop filterloop
+	pop dx
+	pop ax
+	pop cx
+	pop si
+	pop bx
 	ret
 endp filter
 
 proc Sort2Arrays
+;Sort2Arrays: sort the two arrays
+;input: array1, array2, sorted
+;output: sorted
+;registers: ax????????
 	;mov ax, arrlength
 	;add ax, arr2length
 	;mov sortedlength, ax
